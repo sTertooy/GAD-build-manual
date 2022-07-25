@@ -1,14 +1,12 @@
 name: "Build package manual"
 description: "Build the manual of the GAP package"
-defaults:
-  run:
-    shell: bash
     
 runs:
   using: "composite"
   steps:
   
     - name: "Build package manual"
+      shell: bash
       env:
         SOURCE_DATE_EPOCH: 0 # Prevent time stamps in generated PDF
       run: |
@@ -18,7 +16,7 @@ runs:
         ln -f -s $PWD /tmp/gaproot/pkg/
          
         # Add extra flags
-        GAP='gap -A -c -c "QUIT;"'
+        GAP='gap -A -c "QUIT;"'
         
         if [ -f "makedoc.g" ]; then
             $GAP makedoc.g
