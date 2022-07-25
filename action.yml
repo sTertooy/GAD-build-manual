@@ -1,31 +1,38 @@
 name: "Build package manual"
 description: "Build the manual of the GAP package"
+defaults:
+  run:
+    shell: bash
+    
 runs:
   using: "composite"
   steps:
+  
     - name: "Build package manual"
-      shell: bash
       env:
         SOURCE_DATE_EPOCH: 0 # Prevent time stamps in generated PDF
       run: |
-        # Set up a custom GAP root containing only this package, so that
-        # we can force GAP to load the correct version of this package
-        mkdir -p /tmp/gaproot/pkg/
+        set -ex
+        
+        # Add package to the custom GAP root
         ln -f -s $PWD /tmp/gaproot/pkg/
+         
+        # Add extra flags
+        GAP='gap -A -c -c "QUIT;"'
         
         if [ -f "makedoc.g" ]; then
-          gap -A -l "/tmp/gaproot;" --quitonbreak makedoc.g -c "QUIT;"
+            $GAP makedoc.g
         elif [ -x "doc/make_doc" ]; then
-          # If the package is called <pkg_name>, then the <doc/make_doc> script
-          # most likely assumes that it has been called from the within the
-          # <pkg_name>/doc folder, and that the directory hierarchy is
-          # <gaproot>/pkg/<pkg_name>/doc/make_doc, and relies on this to access
-          # several file.
-          # So we create symlinks to some potentially-useful GAP directories.
-          [ -d ../../doc ] && echo "../../doc exists" || ln -s $HOME/gap/doc ../../doc
-          [ -d ../../etc ] && echo "../../etc exists" || ln -s $HOME/gap/etc ../../etc
-          cd doc && ./make_doc
+            # If the package is called <pkg_name>, then the <doc/make_doc> script
+            # most likely assumes that it has been called from the within the
+            # <pkg_name>/doc folder, and that the directory hierarchy is
+            # <gaproot>/pkg/<pkg_name>/doc/make_doc, and relies on this to access
+            # several file.
+            # So we create symlinks to some potentially-useful GAP directories.
+            [ -d ../../doc ] && echo "../../doc exists" || ln -s $HOME/gap/doc ../../doc
+            [ -d ../../etc ] && echo "../../etc exists" || ln -s $HOME/gap/etc ../../etc
+            cd doc && ./make_doc
         else
-          echo "no makedoc.g file or doc/make_doc script found!"
-          exit 1
+            echo "no makedoc.g file or doc/make_doc script found!"
+            exit 1
         fi
