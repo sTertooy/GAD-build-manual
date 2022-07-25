@@ -13,9 +13,11 @@ runs:
     - name: "Install TeX Live"
       shell: bash
       run: |
+        set -ex
+        
         if [ ${{ inputs.use-latex }} = "true" ]; then
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+          apt-get update
+          apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
         fi
   
     - name: "Build package manual"
