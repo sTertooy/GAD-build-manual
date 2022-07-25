@@ -1,9 +1,22 @@
 name: "Build package manual"
 description: "Build the manual of the GAP package"
-    
+inputs:
+  use-latex:
+    description: 'If true, then install and use latex'
+    required: false
+    default: true
+
 runs:
   using: "composite"
   steps:
+  
+    - name: "Install TeX Live"
+      shell: bash
+      run: |
+        if [ ${{ inputs.use-latex }} = "true" ]; then
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+        fi
   
     - name: "Build package manual"
       shell: bash
