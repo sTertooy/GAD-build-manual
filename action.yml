@@ -10,16 +10,6 @@ runs:
   using: "composite"
   steps:
   
-    - name: "Install TeX Live"
-      shell: bash
-      run: |
-        set -ex
-        
-        if [ ${{ inputs.use-latex }} = "true" ]; then
-          apt-get update
-          apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-        fi
-  
     - name: "Build package manual"
       shell: bash
       env:
@@ -28,7 +18,7 @@ runs:
         set -ex
         
         # Add package to the custom GAP root
-        ln -f -s $PWD /tmp/gaproot/pkg/
+        ln -f -s $PWD $GAP_ROOT/pkg/
          
         # Add extra flags
         GAP='gap -A -c "QUIT;"'
@@ -42,8 +32,8 @@ runs:
             # <gaproot>/pkg/<pkg_name>/doc/make_doc, and relies on this to access
             # several file.
             # So we create symlinks to some potentially-useful GAP directories.
-            [ -d ../../doc ] && echo "../../doc exists" || ln -s $HOME/gap/doc ../../doc
-            [ -d ../../etc ] && echo "../../etc exists" || ln -s $HOME/gap/etc ../../etc
+            [ -d ../../doc ] && echo "../../doc exists" || ln -s $GAP_HOME/doc ../../doc
+            [ -d ../../etc ] && echo "../../etc exists" || ln -s $GAP_HOME/etc ../../etc
             cd doc && ./make_doc
         else
             echo "no makedoc.g file or doc/make_doc script found!"
