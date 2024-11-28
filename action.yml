@@ -14,12 +14,9 @@ runs:
         
         # Add package to the custom GAP root
         ln -f -s $PWD $GAP_ROOT/pkg/
-         
-        # Add extra flags
-        GAP='gap -A -c "QUIT;"'
         
         if [ -f "makedoc.g" ]; then
-            $GAP makedoc.g
+            gap -A makedoc.g -c "QUIT;"
         elif [ -x "doc/make_doc" ]; then
             # If the package is called <pkg_name>, then the <doc/make_doc> script
             # most likely assumes that it has been called from the within the
