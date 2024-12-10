@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: stertooy/twistedconjugacy
+          path: twistedconjugacy
       - uses: actions/checkout@v4
         with:
           path: this-action/
@@ -26,5 +27,5 @@ jobs:
       - uses: ./this-action/
       - uses: actions/upload-artifact@v4
         with:
-          path: ./doc/manual.pdf
+          path: ./twistedconjugacy/doc/manual.pdf
           if-no-files-found: error
