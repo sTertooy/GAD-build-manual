@@ -30,4 +30,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: stertooy/gda-build-pkg@v1
       - uses: stertooy/gda-manual@v1
+      - uses: actions/upload-artifact@v4
+        path: ./doc/manual.pdf
+        if-no-files-found: error
 ```
