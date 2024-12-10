@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/stertooy/gda-image:master-slim
+      image: ghcr.io/stertooy/gda-image:tex-slim
 
     steps:
       - uses: actions/checkout@v4
