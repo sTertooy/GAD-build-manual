@@ -22,7 +22,7 @@ jobs:
           path: twistedconjugacy
       - uses: actions/checkout@v4
         with:
-          path: this-action/
+          path: twistedconjugacy/this-action/
       - uses: stertooy/gda-build-pkg@v1
       - uses: ./this-action/
       - uses: actions/upload-artifact@v4
