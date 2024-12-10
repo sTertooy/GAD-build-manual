@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: gap-packages/example
+          repository: stertooy/twistedconjugacy
       - uses: actions/checkout@v4
         with:
           path: this-action/
