@@ -18,19 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: stertooy/twistedconjugacy
+          repository: gap-packages/example
       - uses: actions/checkout@v4
         with:
           path: ./this-action/
       - uses: stertooy/gda-build-pkg@v1
-      - shell: bash
-        run: |
-          ls -a ./
       - uses: ./this-action/
-      - shell: bash
-        run: |
-          ls -a ./
       - uses: actions/upload-artifact@v4
         with:
-          path: ./twistedconjugacy/doc/manual.pdf
+          path: ./doc/manual.pdf
           if-no-files-found: error
