@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
 
     container:
-      image: ghcr.io/stertooy/gda-image:master
+      image: ghcr.io/stertooy/gda-image:tex-full
 
     steps:
       - uses: actions/checkout@v4
