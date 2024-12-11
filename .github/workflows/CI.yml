@@ -23,6 +23,9 @@ jobs:
         with:
           path: ./this-action/
       - uses: stertooy/gda-build-pkg@v1
+      - shell: bash
+        run: |
+          ls -a ./
       - uses: ./this-action/
       - shell: bash
         run: |
