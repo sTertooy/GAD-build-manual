@@ -19,12 +19,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: stertooy/twistedconjugacy
-          path: twistedconjugacy
       - uses: actions/checkout@v4
         with:
-          path: twistedconjugacy/this-action/
+          path: ./this-action/
       - uses: stertooy/gda-build-pkg@v1
-      - uses: ./twistedconjugacy/this-action/
+      - uses: ./this-action/
+      - shell: bash
+        run: |
+          ls -a ./
       - uses: actions/upload-artifact@v4
         with:
           path: ./twistedconjugacy/doc/manual.pdf
